@@ -1,0 +1,17 @@
+@using Comentsys.Assets.FluentEmoji;
+@for (int r = 0; r < Value.Rows.Count; r++)
+{
+    <div class="row">
+        @for (int c = 0; c < Value.Rows[r].Columns.Count; c++)
+        {
+            <div class="col-sm text-center">
+                <Asset AssetResource="@ShadedFluentEmoji.Get(Value.Rows[r].Columns[c].Primary)" />
+            </div>
+        }
+    </div>
+}
+@code
+{
+    [Parameter]
+    public Display Value { get; set; } = new();
+}

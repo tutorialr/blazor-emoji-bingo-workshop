@@ -18,9 +18,9 @@ jobs:
      # publishes Blazor project to the release-folder
      - name: Publish .NET 7 Project
        run: dotnet publish Blazor.Emoji.Bingo/Blazor.Emoji.Bingo.csproj -c Release -o release --nologo
-     # changes the base-tag in index.html from '/' to 'Blazor.Emoji.Bingo' to match GitHub Pages repository subdirectory
-     - name: Change base-tag in index.html from / to Blazor.Emoji.Bingo
-       run: sed -i 's/<base href="\/" \/>/<base href="\/Blazor.Emoji.Bingo\/" \/>/g' release/wwwroot/index.html       
+     # changes the base-tag in index.html from '/' to 'blazor-emoji-bingo-workshop' to match GitHub Pages repository subdirectory
+     - name: Change base-tag in index.html from / to blazor-emoji-bingo-workshop
+       run: sed -i 's/<base href="\/" \/>/<base href="\/blazor-emoji-bingo-workshop\/" \/>/g' release/wwwroot/index.html       
      # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
      - name: Add .nojekyll file
        run: touch release/wwwroot/.nojekyll

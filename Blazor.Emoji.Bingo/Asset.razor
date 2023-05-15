@@ -1,0 +1,16 @@
+@using Comentsys.Toolkit;
+@Svg
+@code
+{
+    internal MarkupString Svg { get; set; } = new();
+
+    [Parameter]
+    public AssetResource AssetResource { get; set; } = new();
+
+
+    protected async override Task OnParametersSetAsync()
+    {
+        using var reader = new StreamReader(AssetResource.Stream);
+        Svg = new MarkupString(await reader.ReadToEndAsync());
+    }
+}

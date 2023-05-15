@@ -1,0 +1,77 @@
+﻿@page "/"
+@inject Bingo bingo;
+
+<!-- Title -->
+<PageTitle>Blazor Emoji Bingo</PageTitle>
+
+<h1>
+    Blazor Emoji Bingo
+    <button class="btn btn-primary" @onclick="@bingo.New">New</button>
+</h1>
+
+@if (bingo.IsReady)
+{
+    @if (bingo.Countdown > 0)
+    {
+        <h2>@bingo.Countdown</h2>
+    }
+    else
+    {
+        <div class="container">
+            <!-- Container -->
+            @if (bingo.Winner > 0)
+            {
+                <div class="row alert alert-success" role="alert">
+                    @bingo.Message
+                </div>
+            }
+            <div class="row">
+                <div class="col-6">
+                    <Output Value="@bingo.Display" />
+                </div>
+                <div class="col-6">
+                    <span class="badge bg-secondary">
+                        <strong>@bingo.Player</strong>
+                    </span>
+                    <Output Value="@bingo.Current" />
+                </div>
+            </div>
+            <div class="row row-cols-sm-6">
+                @for (int i = 0; i < bingo.Tickets.Count; i++)
+                {
+                    <div class="col">
+                        <div class="badge bg-secondary">
+                            <strong>@(i + 1)</strong>
+                            @(bingo.Tickets[i].Count)TG
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    }
+}
+else
+{
+    <!-- Form -->
+    <form @onsubmit="bingo.Ready">
+        <div class="form-group">
+            <label>Total Players</label>
+            <input type="text" class="form-control" @bind="bingo.Players" />
+        </div>
+        <div class="form-group">
+            <label>Player</label>
+            <input type="text" class="form-control" @bind="bingo.Player" />
+        </div>
+        <div class="form-group">
+            <label>Value</label>
+            <input type="text" class="form-control" @bind="bingo.Value" />
+        </div>
+        <button class="btn btn-success m-2">Ready</button>
+    </form>
+}
+@code
+{
+    protected override void OnInitialized() =>
+    bingo.Updated = () => this.StateHasChanged();
+}
